@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExtMusic — Tu música, sin límites</title>
+  <meta name="description" content="Reproductor de música gratuito para Android con descargas offline, letras sincronizadas y audio Hi-Res.">
+  <style>
+    :root {
+      --amber: #FFD23E;
+      --amber-mid: #FFA61E;
+      --caoba: #C75A2E;
+      --caoba-dark: #8E3B2E;
+      --bg: #0d0d0d;
+      --bg-2: #111111;
+      --bg-3: #1a1a1a;
+      --text: #f0f0f0;
+      --text-muted: #999;
+      --radius: 18px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(160deg, #1a0f0c 0%, #0d0d0d 60%);
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,166,30,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    header img.app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(255,162,30,0.25);
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--amber), var(--caoba));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    header p {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 32px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--amber-mid), var(--caoba));
+      color: #000;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 6px 16px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .features {
+      background: var(--bg-2);
+      padding: 64px 24px;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--bg-3);
+      border: 1px solid rgba(255,166,30,0.08);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(255,166,30,0.25);
+      transform: translateY(-2px);
+    }
+
+    .card-icon { font-size: 1.6rem; margin-bottom: 12px; }
+
+    .card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--amber-mid);
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .privacy {
+      background: var(--bg);
+      padding: 72px 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .privacy-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .privacy h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+
+    .privacy .updated {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+
+    .privacy h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--amber-mid);
+      margin: 28px 0 10px;
+    }
+
+    .privacy p {
+      font-size: 0.9rem;
+      color: #bbb;
+      line-height: 1.7;
+    }
+
+    .privacy ul { list-style: none; margin-top: 8px; }
+
+    .privacy ul li {
+      font-size: 0.9rem;
+      color: #bbb;
+      line-height: 1.7;
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+
+    .privacy ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--caoba);
+    }
+
+    .privacy a { color: var(--amber-mid); text-decoration: none; }
+    .privacy a:hover { text-decoration: underline; }
+
+    footer {
+      background: var(--bg-2);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+      padding: 32px 24px;
+    }
+
+    footer p { font-size: 0.82rem; color: #444; }
+    footer span { color: var(--caoba); }
+
+    @media (max-width: 480px) {
+      header { padding: 56px 16px 40px; }
+      .features, .privacy { padding: 48px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img class="app-icon" src="mambo_icon_v7.png" alt="ExtMusic">
+  <h1>ExtMusic</h1>
+  <p>Tu música, sin límites. Reproductor gratuito para Android con descargas offline, letras sincronizadas y audio de alta calidad.</p>
+  <span class="badge">Disponible para Android</span>
+</header>
+
+<section class="features">
+  <h2>Todo lo que necesitas en un reproductor</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">🎵</div>
+      <h3>Sin anuncios</h3>
+      <p>Reproduce música en streaming de forma continua, sin interrupciones publicitarias de ningún tipo.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📥</div>
+      <h3>Descargas offline</h3>
+      <p>Guarda canciones en tu dispositivo y escúchalas sin necesidad de conexión a internet.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎤</div>
+      <h3>Letras sincronizadas</h3>
+      <p>Sigue la letra de cada canción en tiempo real. Disponible incluso en modo offline.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔊</div>
+      <h3>Audio Hi-Res</h3>
+      <p>Reproduce en la máxima calidad disponible. Soporte para formatos de alta fidelidad.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>Sincronización</h3>
+      <p>Importa tu biblioteca musical, favoritos y playlists automáticamente desde tu cuenta.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌙</div>
+      <h3>Tema AMOLED</h3>
+      <p>Fondo negro puro que apaga píxeles en pantallas OLED y extiende la duración de la batería.</p>
+    </div>
+  </div>
+</section>
+
+<section class="privacy">
+  <div class="privacy-inner">
+    <h2>Política de Privacidad</h2>
+    <p class="updated">Última actualización: junio 2026</p>
+    <p>ExtMusic es una aplicación de música personal. Esta política explica qué datos recopila la app y cómo los utiliza.</p>
+
+    <h3>Datos que recopilamos</h3>
+    <ul>
+      <li><strong>Cuenta de Google:</strong> utilizada para sincronizar tu biblioteca musical personal, favoritos y listas de reproducción.</li>
+      <li><strong>Historial de reproducción:</strong> guardado únicamente en tu dispositivo. No se transmite a ningún servidor externo.</li>
+      <li><strong>Archivos de audio descargados:</strong> almacenados en el espacio privado de la app, inaccesibles para otras aplicaciones.</li>
+    </ul>
+
+    <h3>Cómo usamos tus datos</h3>
+    <ul>
+      <li>Tu cuenta de Google se usa exclusivamente para sincronizar tu biblioteca musical dentro de la app.</li>
+      <li>No vendemos, compartimos ni transmitimos tus datos personales a terceros bajo ninguna circunstancia.</li>
+      <li>No recopilamos analíticas, métricas de uso ni datos de comportamiento.</li>
+    </ul>
+
+    <h3>Almacenamiento y eliminación</h3>
+    <ul>
+      <li>Los archivos descargados y el historial local se eliminan automáticamente al desinstalar la app.</li>
+      <li>Puedes cerrar sesión en cualquier momento desde <strong>Ajustes → Cuenta</strong> dentro de la app.</li>
+      <li>También puedes revocar el acceso desde <a href="https://myaccount.google.com/permissions" target="_blank">myaccount.google.com/permissions</a>.</li>
+    </ul>
+
+    <h3>Seguridad</h3>
+    <p>Todos los datos en tránsito están cifrados mediante HTTPS. No almacenamos credenciales de usuario en nuestros servidores.</p>
+
+    <h3>Contacto</h3>
+    <p>¿Preguntas sobre esta política? Escríbenos a <a href="mailto:extmusic.app@gmail.com">extmusic.app@gmail.com</a></p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 ExtMusic — Hecho con <span>♪</span> en Perú</p>
+</footer>
+
+</body>
+</html>
